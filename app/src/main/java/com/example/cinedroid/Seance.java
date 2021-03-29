@@ -17,6 +17,14 @@ public class Seance {
         this.heure=heure;
     }
 
+    public Seance(String nomFilm, String realisateur, String duree, String langue, String heure){
+        this.nomFilm=nomFilm;
+        this.realisateur=realisateur;
+        this.duree=duree;
+        this.langue=langue;
+        this.heure=heure;
+    }
+
     //Getters
     public long getIdS() {
         return idS;

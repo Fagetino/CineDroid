@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SeanceDAO seanceDAO = new SeanceDAO(this);
+
         Log.d("onCreate", seanceDAO.getSeances().toString());
     }
 }

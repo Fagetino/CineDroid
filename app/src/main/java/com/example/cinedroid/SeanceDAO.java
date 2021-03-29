@@ -1,4 +1,4 @@
-package com.example.cinedroid;
+    package com.example.cinedroid;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -15,7 +15,7 @@ public class SeanceDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table sceances("
+        db.execSQL("create table seances("
                 + "idS INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "nomFilm TEXT NOT NULL,"
                 + "realisateur TEXT NOT NULL,"
@@ -23,7 +23,8 @@ public class SeanceDAO extends SQLiteOpenHelper {
                 + "langue TEXT NOT NULL,"
                 + "heure TEXT NOT NULL);");
 
-        insertSeance(new Seance(0,"Countdown", "Justin Dec", "1h30", "VF", "10h"), db);
+        Modele.initSeances();
+        insertSeances(Modele.lesSeances, db);
     }
 
     @Override
@@ -31,18 +32,53 @@ public class SeanceDAO extends SQLiteOpenHelper {
 
     }
 
+    //==================== Insertions ====================
     public void insertSeance(Seance seance, SQLiteDatabase db){
-        db.execSQL("insert into sceances(nomFilm, realisateur, duree, langue, heure) values('" + seance.getNomFilm() + "', '"+ seance.getRealisateur() +"', '"+ seance.getDuree() +"', '"+ seance.getLangue() +"', '"+ seance.getHeure() +"')");
+        db.execSQL("insert into seances(nomFilm, realisateur, duree, langue, heure) values('" + seance.getNomFilm() + "', '"+ seance.getRealisateur() +"', '"+ seance.getDuree() +"', '"+ seance.getLangue() +"', '"+ seance.getHeure() +"')");
     }
 
+    public void insertSeances(ArrayList<Seance> seances, SQLiteDatabase db){
+        for (Seance seance : seances) {
+            insertSeance(seance, db);
+        }
+    }
+
+    //==================== Requêtes ====================
     public ArrayList<Seance> getSeances(){
         Cursor curseur;
-        String req = "select * from sceances";
+        String req = "select * from seances";
         curseur = this.getReadableDatabase().rawQuery(req, null);
-        return curseurToSceanceArrayList(curseur);
+        return curseurToSeanceArrayList(curseur);
     }
 
-    private ArrayList<Seance> curseurToSceanceArrayList(Cursor curseur) {
+    public ArrayList<Seance> getSeances(String heure){
+        Cursor curseur;
+        String req = "select * from seances where heure like ?";
+        curseur = this.getReadableDatabase().rawQuery(req, new String[]{heure+""});
+        return curseurToSeanceArrayList(curseur);
+    }
+
+    public Seance getSeance(long idS){
+        Seance uneSeance = null;
+        Cursor curseur;
+        curseur = this.getReadableDatabase().rawQuery("select * from seances where idS=?;", new String[]{idS+""});
+        uneSeance = curseurToPlat(curseur);
+
+        return uneSeance;
+    }
+
+    public Seance getSeance(String nomFilm){
+        Seance uneSeance = null;
+        Cursor curseur;
+        curseur = this.getReadableDatabase().rawQuery("select * from plat where nomFilm=?;", new String[]{nomFilm+""});
+        uneSeance = curseurToPlat(curseur);
+
+        return uneSeance;
+    }
+
+
+    //==================== Transformation du curseur ====================
+    private ArrayList<Seance> curseurToSeanceArrayList(Cursor curseur) {
         ArrayList<Seance> seancesArray = new ArrayList<>();
         long idS;
         String nomFilm;
@@ -62,5 +98,28 @@ public class SeanceDAO extends SQLiteOpenHelper {
             curseur.moveToNext();
         }
         return seancesArray;
+    }
+
+    private Seance curseurToPlat(Cursor curseur) {
+        Seance uneSeance = null;
+        long idS;
+        String nomFilm;
+        String realisateur;
+        String duree;
+        String langue;
+        String heure;
+
+
+        if(curseur.getCount()>0){
+            curseur.moveToFirst();
+            idS=curseur.getLong(0);
+            nomFilm=curseur.getString(1);
+            realisateur=curseur.getString(2);
+            duree=curseur.getString(3);
+            langue=curseur.getString(4);
+            heure=curseur.getString(5);
+            uneSeance = new Seance(idS, nomFilm, realisateur, duree, langue, heure);
+        }
+        return uneSeance;
     }
 }
