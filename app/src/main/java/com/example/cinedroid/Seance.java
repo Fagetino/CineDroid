@@ -1,18 +1,25 @@
 package com.example.cinedroid;
 
-public class Sceance {
+public class Seance {
+    private long idS;
     private String nomFilm;
     private String realisateur;
     private String duree;
     private String langue;
     private String heure;
 
-    public Sceance(String nomFilm, String realisateur, String duree, String langue, String heure){
+    public Seance(long idS, String nomFilm, String realisateur, String duree, String langue, String heure){
+        this.idS = idS;
         this.nomFilm=nomFilm;
         this.realisateur=realisateur;
         this.duree=duree;
         this.langue=langue;
         this.heure=heure;
+    }
+
+    //Getters
+    public long getIdS() {
+        return idS;
     }
 
     public String getNomFilm() {
@@ -35,6 +42,11 @@ public class Sceance {
         return heure;
     }
 
+    //Setters
+    public void setIdS(long idS) {
+        this.idS = idS;
+    }
+
     public void setNomFilm(String nomFilm) {
         this.nomFilm = nomFilm;
     }
@@ -53,5 +65,10 @@ public class Sceance {
 
     public void setHeure(String heure) {
         this.heure = heure;
+    }
+
+    //Methodes usuelles
+    public String toString(){
+        return " | " + getNomFilm() + " " + getRealisateur() + " " + getDuree() +  " " + getLangue() + " " + getHeure();
     }
 }
