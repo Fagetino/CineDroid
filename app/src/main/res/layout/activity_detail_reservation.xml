@@ -10,7 +10,8 @@
             android:layout_height="250dp"
             android:src="@drawable/affichefilm"
             android:layout_gravity="center"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:contentDescription="@string/txt_description_affiche"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
