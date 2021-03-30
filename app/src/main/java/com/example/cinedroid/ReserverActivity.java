@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReserverActivity extends AppCompatActivity {
     private TextView tv_titre;
@@ -113,13 +114,17 @@ public class ReserverActivity extends AppCompatActivity {
                 double nbPlacesJeune = Integer.parseInt(tv_nbPlacesJeune.getText().toString());
 
                 coutTotal = (nbPlacesNormal*9.60) + (nbPlacesEtudiant*7) + (nbPlacesJeune*5);
+                if(coutTotal>0) {
+                    Intent intent = new Intent(ReserverActivity.this, DetailReservationActivity.class);
+                    intent.putExtra("nomFilm", tv_titre.getText());
+                    intent.putExtra("heure", tv_heure.getText());
+                    intent.putExtra("coutTotal", coutTotal);
 
-                Intent intent = new Intent(ReserverActivity.this, DetailReservationActivity.class);
-                intent.putExtra("nomFilm", tv_titre.getText());
-                intent.putExtra("heure", tv_heure.getText());
-                intent.putExtra("coutTotal", coutTotal);
-
-                startActivity(intent);
+                    startActivity(intent);
+                } else{
+                    Toast toast = Toast.makeText(ReserverActivity.this, getResources().getText(R.string.txt_toast), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
     }

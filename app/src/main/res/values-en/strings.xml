@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CineDroid</string>
+    <string name="txt_seance_de">Session of</string>
+    <string name="txt_nombre_de_places">Number of \n places</string>
+    <string name="txt_tarif">Rate</string>
+    <string name="txt_nb_place_par_defaut">0</string>
+    <string name="b_plus">+</string>
+    <string name="b_moins">-</string>
+    <string name="txt_tarif_normal">Normal 9,60€</string>
+    <string name="txt_tarif_etudiant">Student 7€</string>
+    <string name="txt_tarif_jeune">Young 5€</string>
+    <string name="b_reserver">Book</string>
+    <string name="txt_description_affiche">Movie poster</string>
+    <string name="txt_seance_de_la_journee">Sessions of the day</string>
+    <string name="txt_reservation_effectuee">Reservation made</string>
+    <string name="txt_cout_total">total cost :</string>
+    <string name="txt_devise">€</string>
+    <string name="txt_toast">Please add at least one place</string>
+</resources>
