@@ -63,6 +63,7 @@ public class ReserverActivity extends AppCompatActivity {
         tv_titre.setText(nomFilm);
         tv_heure.setText(heure);
 
+        //Incrémentation et décrémentation des nombres de places lors d'un clique sur un bouton - ou +
         b_plusNormal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,15 +106,22 @@ public class ReserverActivity extends AppCompatActivity {
             }
         });
 
+
+        //Ouverture de l'activité de détail de la réservation après un clique sur le bouton réservé
         b_reserver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double coutTotal;
+                double coutTotal; //cout totale de la réservation
+
+                //Récupération du nombre de place
                 double nbPlacesNormal = Integer.parseInt(tv_nbPlacesNormal.getText().toString());
                 double nbPlacesEtudiant = Integer.parseInt(tv_nbPlacesEtudiant.getText().toString());
                 double nbPlacesJeune = Integer.parseInt(tv_nbPlacesJeune.getText().toString());
 
+                //Calcul du cout totale de la réservation
                 coutTotal = (nbPlacesNormal*9.60) + (nbPlacesEtudiant*7) + (nbPlacesJeune*5);
+
+                //L'activité suivante n'est lancée que si le cout totale est superieur à 0 sinon on affiche un message d'avertissement
                 if(coutTotal>0) {
                     Intent intent = new Intent(ReserverActivity.this, DetailReservationActivity.class);
                     intent.putExtra("nomFilm", tv_titre.getText());
@@ -122,6 +130,7 @@ public class ReserverActivity extends AppCompatActivity {
 
                     startActivity(intent);
                 } else{
+                    //Affichage du message d'avertissement
                     Toast toast = Toast.makeText(ReserverActivity.this, getResources().getText(R.string.txt_toast), Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -129,12 +138,14 @@ public class ReserverActivity extends AppCompatActivity {
         });
     }
 
+    //Methode d'incrementation des places
     public void incrementPlace(TextView tv_nbPlaces){
         int nbPlaces = Integer.parseInt(tv_nbPlaces.getText().toString());
         nbPlaces++;
         tv_nbPlaces.setText(String.valueOf(nbPlaces));
     }
 
+    //Methode de decrementation des places
     public void decrementPlace(TextView tv_nbPlaces){
         int nbPlaces = Integer.parseInt(tv_nbPlaces.getText().toString());
         if (nbPlaces>0){

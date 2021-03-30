@@ -3,8 +3,9 @@ package com.example.cinedroid;
 import java.util.ArrayList;
 
 public class Modele {
-    public static ArrayList<Seance> lesSeances = new ArrayList<>();
+    public static ArrayList<Seance> lesSeances = new ArrayList<>(); //Tableau contenant les séances
 
+    //Initialisation des séances
     public static void initSeances(){
         lesSeances.clear();
         lesSeances.add(new Seance("Countdown", "Justin Dec", 90, "VF", "10h"));

@@ -24,9 +24,14 @@ public class MainActivity extends AppCompatActivity {
         lv_listeSeance = findViewById(R.id.lv_listeSeances);
 
         SeanceDAO seanceDAO = new SeanceDAO(this);
+
+        //Récupération des séances contenu dans la base de données
         final ArrayList<Seance> listeSeances = new ArrayList<>(seanceDAO.getSeances());
+
+        //Ajout des Items dans la liste des séances
         lv_listeSeance.setAdapter(new SeanceAdapter(this, listeSeances));
 
+        //Ouverture de l'activité de détail de la séance après un clique sur une séance de la ListeView
         lv_listeSeance.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
