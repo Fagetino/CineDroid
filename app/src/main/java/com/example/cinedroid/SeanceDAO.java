@@ -19,7 +19,7 @@ public class SeanceDAO extends SQLiteOpenHelper {
                 + "idS INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "nomFilm TEXT NOT NULL,"
                 + "realisateur TEXT NOT NULL,"
-                + "duree TEXT NOT NULL,"
+                + "duree NUMBER NOT NULL,"
                 + "langue TEXT NOT NULL,"
                 + "heure TEXT NOT NULL);");
 
@@ -83,7 +83,7 @@ public class SeanceDAO extends SQLiteOpenHelper {
         long idS;
         String nomFilm;
         String realisateur;
-        String duree;
+        int duree;
         String langue;
         String heure;
         curseur.moveToFirst();
@@ -91,7 +91,7 @@ public class SeanceDAO extends SQLiteOpenHelper {
             idS=curseur.getLong(0);
             nomFilm=curseur.getString(1);
             realisateur=curseur.getString(2);
-            duree=curseur.getString(3);
+            duree=curseur.getInt(3);
             langue=curseur.getString(4);
             heure=curseur.getString(5);
             seancesArray.add(new Seance(idS, nomFilm, realisateur, duree, langue, heure));
@@ -105,7 +105,7 @@ public class SeanceDAO extends SQLiteOpenHelper {
         long idS;
         String nomFilm;
         String realisateur;
-        String duree;
+        int duree;
         String langue;
         String heure;
 
@@ -115,7 +115,7 @@ public class SeanceDAO extends SQLiteOpenHelper {
             idS=curseur.getLong(0);
             nomFilm=curseur.getString(1);
             realisateur=curseur.getString(2);
-            duree=curseur.getString(3);
+            duree=curseur.getInt(3);
             langue=curseur.getString(4);
             heure=curseur.getString(5);
             uneSeance = new Seance(idS, nomFilm, realisateur, duree, langue, heure);
